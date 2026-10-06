@@ -13,7 +13,7 @@
 
 | # | Feature | User Story | Story Points | Definition of Done |
 |---|---|---|---|---|
-| 1 | Block/Room/Bed inventory | As an Admin, I want to add Blocks, Rooms, and Beds so that hostel inventory is visible in the system. | 5 | Block/Room/Bed data stored correctly; list page shows all with availability status; duplicate room numbers rejected. |
+| 1 | Block/Room/Bed inventory | As an Admin, I want to add Blocks, Rooms, and Beds so that hostel inventory is visible in the system. | 5 | Block/Room/Bed data stored correctly; list page shows all with availability status; duplicate room numbers rejected.|
 | 2 | Room allocation | As a Warden, I want to allocate a bed to a Student so each student has a confirmed room. | 3 | Allocation records student + bed + date; same bed cannot be allocated twice; allocation page shows status. |
 | 3 | Out-pass | As a Student, I want to apply for an out-pass so I can request permission to leave the hostel. | 3 | Student fills date + reason; Warden sees pending list; approve/reject button works; student sees status. |
 | 4 | Mess attendance and billing | As a Warden, I want to mark daily mess attendance and generate a monthly bill so students are billed correctly. | 8 | Daily attendance marked per student; monthly bill = days × rate; bill PDF/print available; totals match math. |
