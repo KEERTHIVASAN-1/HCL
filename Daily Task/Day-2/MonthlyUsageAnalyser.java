@@ -12,12 +12,19 @@ public class MonthlyUsageAnalyser {
         int peakElectricity = 0;
         int lowestWater = Integer.MAX_VALUE;
 
-        for (int i = 0; i < TOTAL_DAYS; i++) {
+        for (int i = 0; i < TOTAL_DAYS; i++) 
+        {
             totalElectricity += dailyElectricity[i];
             totalWater += dailyWater[i];
             totalMessAttendance += messAttendance[i];
-            if (dailyElectricity[i] > peakElectricity) peakElectricity = dailyElectricity[i];
-            if (dailyWater[i] < lowestWater) lowestWater = dailyWater[i];
+            if (dailyElectricity[i] > peakElectricity) 
+                {
+                    peakElectricity = dailyElectricity[i];
+                }
+            if (dailyWater[i] < lowestWater) 
+                {
+                    lowestWater = dailyWater[i];
+                }
         }
 
         double avgElectricity = (double) totalElectricity / TOTAL_DAYS;
