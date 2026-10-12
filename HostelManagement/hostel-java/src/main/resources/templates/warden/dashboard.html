@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warden Dashboard | Campus Hostel Portal</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="app-shell-body portal-page role-warden">
+<aside class="sidebar-panel offcanvas-lg offcanvas-start" tabindex="-1" id="wardenSidebar" aria-labelledby="wardenSidebarLabel">
+  <div class="sidebar-inner">
+    <div class="sidebar-brand">
+      <div class="portal-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 10 12 4l9 6"/>
+          <path d="M5 10v8h14v-8"/>
+          <path d="M9 18v-4h6v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="fw-semibold" id="wardenSidebarLabel">Campus Hostel Portal</div>
+        <div class="small text-white-50">Warden workspace</div>
+      </div>
+    </div>
+
+    <div class="sidebar-note">
+      Focus on resident welfare, allocation decisions, and daily occupancy visibility across the hostel.
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Warden navigation">
+      <a class="sidebar-link active" th:href="@{/warden/dashboard}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 12h7V4H4z"/>
+            <path d="M13 20h7v-7h-7z"/>
+            <path d="M13 10h7V4h-7z"/>
+            <path d="M4 20h7v-6H4z"/>
+          </svg>
+        </span>
+        <span>Overview</span>
+      </a>
+      <a class="sidebar-link" href="#students">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+        </span>
+        <span>Students</span>
+      </a>
+      <a class="sidebar-link" href="#rooms">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+          </svg>
+        </span>
+        <span>Rooms &amp; Beds</span>
+      </a>
+      <a class="sidebar-link" href="#allocations">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M8 6h13"/>
+            <path d="M8 12h13"/>
+            <path d="M8 18h13"/>
+            <path d="M3 6h.01"/>
+            <path d="M3 12h.01"/>
+            <path d="M3 18h.01"/>
+          </svg>
+        </span>
+        <span>Allocations</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/warden/allocations/new}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 5v14"/>
+            <path d="M5 12h14"/>
+          </svg>
+        </span>
+        <span>Allocate Bed</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="sidebar-link w-100 border-0 text-start bg-transparent">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <path d="m16 17 5-5-5-5"/>
+            <path d="M21 12H9"/>
+          </svg>
+        </span>
+        <span>Logout</span>
+      </button>
+    </form>
+  </div>
+</aside>
+
+<main class="content-shell">
+  <div class="topbar">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-outline-brand mobile-only" type="button" data-bs-toggle="offcanvas" data-bs-target="#wardenSidebar" aria-controls="wardenSidebar">
+        Menu
+      </button>
+      <div>
+        <div class="small text-uppercase fw-semibold text-muted-portal">Warden Operations</div>
+        <div class="portal-title fs-4">Daily hostel operations dashboard</div>
+      </div>
+    </div>
+    <div class="topbar-user">
+      <div class="text-end">
+        <div class="fw-semibold" sec:authentication="name">warden</div>
+        <div class="small text-muted-portal">Warden access</div>
+      </div>
+      <div class="avatar-badge">WA</div>
+    </div>
+  </div>
+
+  <section class="page-hero mb-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-xl-8">
+        <div class="hero-badge mb-3">
+          <span class="list-dot bg-white"></span>
+          <span>Operational overview</span>
+        </div>
+        <h1 class="portal-title text-white mb-3">See the hostel status at a glance and act quickly on room allocation needs.</h1>
+        <p class="text-muted-hero mb-4">
+          Keep the most important operational details visible: who is in residence, how full each block is, and where beds are still open.
+        </p>
+        <div class="hero-actions">
+          <a href="#students" class="btn btn-ghost-brand">View Students</a>
+          <a href="#rooms" class="btn btn-ghost-brand">Check Rooms</a>
+          <a th:href="@{/warden/allocations/new}" class="btn btn-brand">Allocate Bed</a>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="quick-kpi">
+          <div class="quick-kpi-item">
+            <div class="small text-white-50 mb-1">Occupancy rate</div>
+            <div class="fs-3 fw-bold" th:text="${utilizationRate} + '%'">0%</div>
+          </div>
+          <div class="quick-kpi-item">
+            <div class="small text-white-50 mb-1">Beds available</div>
+            <div class="fs-3 fw-bold" th:text="${availableBeds}">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-grid mb-4">
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Total Students</div>
+          <div class="stat-value" th:text="${studentCount}">0</div>
+          <div class="metric-trend">Current resident student records</div>
+        </div>
+        <div class="stat-icon stat-accent-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Total Rooms</div>
+          <div class="stat-value" th:text="${roomCount}">0</div>
+          <div class="metric-trend">Rooms available for resident management</div>
+        </div>
+        <div class="stat-icon stat-accent-teal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Occupied Beds</div>
+          <div class="stat-value" th:text="${occupiedBeds}">0</div>
+          <div class="metric-trend">Students currently assigned a bed</div>
+        </div>
+        <div class="stat-icon stat-accent-warning" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 20h18"/>
+            <path d="M6 20V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12"/>
+            <path d="M9 10h6"/>
+            <path d="M9 14h6"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Available Beds</div>
+          <div class="stat-value" th:text="${availableBeds}">0</div>
+          <div class="metric-trend">Immediate capacity still open today</div>
+        </div>
+        <div class="stat-icon stat-accent-success" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="m5 12 4 4L19 6"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div class="row g-4 mb-4">
+    <div class="col-xl-5">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Occupancy by block</div>
+            <p class="surface-description">Quick view of how full each hostel block is right now.</p>
+          </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(blockStats)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No room blocks found</div>
+          <p class="mb-0">Add rooms to see block-level occupancy information here.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(blockStats)}" class="occupancy-list">
+          <article class="occupancy-row" th:each="entry : ${blockStats}">
+            <div class="occupancy-meta">
+              <div>
+                <div class="fw-semibold">Block <span th:text="${entry['block']}">A</span></div>
+                <div class="small text-muted-portal">
+                  <span th:text="${entry['roomCount']}">0</span> rooms,
+                  <span th:text="${entry['totalBeds']}">0</span> beds
+                </div>
+              </div>
+              <div class="text-end">
+                <div class="fw-semibold" th:text="${entry['occupancyPercent']} + '%'">0%</div>
+                <div class="small text-muted-portal">
+                  <span th:text="${entry['occupiedBeds']}">0</span> occupied / <span th:text="${entry['availableBeds']}">0</span> free
+                </div>
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-value" th:style="'width:' + ${entry['occupancyPercent']} + '%'"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-xl-7" id="allocations">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Allocation activity</div>
+            <p class="surface-description">Current room assignments with quick status visibility.</p>
+          </div>
+          <a th:href="@{/warden/allocations/new}" class="btn btn-brand">Allocate Bed</a>
+        </div>
+
+        <div th:if="${#lists.isEmpty(allocations)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M8 6h13"/>
+              <path d="M8 12h13"/>
+              <path d="M8 18h13"/>
+              <path d="M3 6h.01"/>
+              <path d="M3 12h.01"/>
+              <path d="M3 18h.01"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No allocations yet</div>
+          <p class="mb-0">Assign a student to a bed to begin tracking room usage here.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(allocations)}" class="table-responsive">
+          <table class="table data-table align-middle">
+            <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Room</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="allocation : ${allocations}">
+              <td class="fw-semibold" th:text="${allocation.studentId}">STU001</td>
+              <td>
+                <div class="fw-semibold" th:text="${allocation.roomNo}">A-101</div>
+                <div class="small text-muted-portal">Bed <span th:text="${allocation.bedNo}">1</span></div>
+              </td>
+              <td><span class="status-badge status-active" th:text="${allocation.status}">ACTIVE</span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-xl-6" id="students">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Student records</div>
+            <p class="surface-description">Quick lookup of student identity and current record status.</p>
+          </div>
+          <input type="search" class="form-control filter-control" placeholder="Search students" data-filter-target="#wardenStudentsTable">
+        </div>
+
+        <div th:if="${#lists.isEmpty(students)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No students found</div>
+          <p class="mb-0">Student records will appear here once residents are registered.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(students)}" class="table-responsive">
+          <table class="table data-table align-middle" id="wardenStudentsTable">
+            <thead>
+            <tr>
+              <th>Student</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}"
+                data-filter-row
+                th:attr="data-search=${student.studentId + ' ' + student.name + ' ' + student.email + ' ' + student.status}">
+              <td>
+                <div class="fw-semibold" th:text="${student.name}">Student One</div>
+                <div class="small text-muted-portal" th:text="${student.studentId}">STU001</div>
+              </td>
+              <td th:text="${student.email}">student1@hostel.local</td>
+              <td><span class="status-badge" th:text="${student.status}"
+                        th:classappend="${student.status == 'ACTIVE'} ? ' status-active' : ' status-warning'">ACTIVE</span></td>
+            </tr>
+            <tr class="d-none" data-filter-empty="#wardenStudentsTable">
+              <td colspan="3" class="text-center text-muted-portal">No students match your search.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-xl-6" id="rooms">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Room availability</div>
+            <p class="surface-description">Room-by-room occupancy helps you place students quickly and accurately.</p>
+          </div>
+          <input type="search" class="form-control filter-control" placeholder="Search rooms" data-filter-target="#wardenRoomsTable">
+        </div>
+
+        <div th:if="${#lists.isEmpty(rooms)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No rooms found</div>
+          <p class="mb-0">Room inventory will appear here once rooms are created.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(rooms)}" class="table-responsive">
+          <table class="table data-table align-middle" id="wardenRoomsTable">
+            <thead>
+            <tr>
+              <th>Room</th>
+              <th>Capacity</th>
+              <th>Occupied</th>
+              <th>Available</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry : ${rooms}"
+                data-filter-row
+                th:attr="data-search=${entry['room'].roomNo + ' ' + entry['room'].block}">
+              <td>
+                <div class="fw-semibold" th:text="${entry['room'].roomNo}">A-101</div>
+                <div class="small text-muted-portal">Block <span th:text="${entry['room'].block}">A</span></div>
+              </td>
+              <td th:text="${entry['room'].capacity}">3</td>
+              <td th:text="${entry['occupied']}">1</td>
+              <td><span class="status-badge status-info" th:text="${entry['available']} + ' open'">2 open</span></td>
+            </tr>
+            <tr class="d-none" data-filter-empty="#wardenRoomsTable">
+              <td colspan="4" class="text-center text-muted-portal">No rooms match your search.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/portal.js}"></script>
+</body>
+</html>

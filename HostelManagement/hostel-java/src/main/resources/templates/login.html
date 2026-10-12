@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${roleLabel} + ' Login | Campus Hostel Portal'">Login</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="auth-page portal-page"
+      th:classappend="${role == 'ADMIN'} ? ' role-admin' : (${role == 'WARDEN'} ? ' role-warden' : ' role-student')">
+<main class="auth-shell">
+  <div class="auth-card-shell">
+    <div class="row g-0 h-100">
+      <section class="col-lg-6 auth-panel auth-brand-panel">
+        <div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="portal-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 10 12 4l9 6"/>
+                <path d="M5 10v8h14v-8"/>
+                <path d="M9 18v-4h6v4"/>
+              </svg>
+            </div>
+            <div>
+              <div class="fw-semibold">Campus Hostel Management Portal</div>
+              <div class="small text-white-50">Secure role-based access for hostel operations</div>
+            </div>
+          </div>
+
+          <div class="auth-chip mt-4">
+            <span class="list-dot bg-white"></span>
+            <span th:text="${roleLabel} + ' access area'">Role access area</span>
+          </div>
+
+          <div th:switch="${role}">
+            <div th:case="'ADMIN'">
+              <h1 class="auth-heading">Run hostel administration with clarity and control.</h1>
+              <p class="auth-copy">
+                Review occupancy, manage room inventory, maintain student records, and coordinate allocations from one polished workspace.
+              </p>
+            </div>
+            <div th:case="'WARDEN'">
+              <h1 class="auth-heading">Support hostel operations with a clear daily view.</h1>
+              <p class="auth-copy">
+                Stay on top of resident allocation, room availability, and student welfare tasks with a focused operational dashboard.
+              </p>
+            </div>
+            <div th:case="*">
+              <h1 class="auth-heading">Welcome back to your hostel living portal.</h1>
+              <p class="auth-copy">
+                Access your room allocation, student profile, and hostel information through a clean, student-friendly experience.
+              </p>
+            </div>
+          </div>
+
+          <div class="auth-feature-list">
+            <div class="auth-feature">
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M4 13.5V6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5H11"/>
+                  <path d="M4 15h6v5H4z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="fw-semibold mb-1">Secure role-based sign in</div>
+                <div class="small text-white-50">Authentication, authorization, and CSRF protection remain unchanged.</div>
+              </div>
+            </div>
+            <div class="auth-feature">
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M4 18h16"/>
+                  <path d="M6 18V9"/>
+                  <path d="M12 18V6"/>
+                  <path d="M18 18v-4"/>
+                </svg>
+              </div>
+              <div>
+                <div class="fw-semibold mb-1">Live operational visibility</div>
+                <div class="small text-white-50">Dashboards surface real student, room, and allocation data from the current backend.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-illustration" aria-hidden="true">
+          <div class="campus-skyline">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="col-lg-6 auth-panel auth-form-panel">
+        <div class="auth-form-card">
+          <div class="mb-4">
+            <div class="small text-uppercase fw-semibold text-muted-portal mb-2">Sign in</div>
+            <h2 class="portal-title mb-2" th:text="${roleLabel} + ' Portal Login'">Portal Login</h2>
+            <p class="portal-subtitle mb-0">
+              Enter your registered username and password to continue to the protected <span th:text="${roleLabel}">role</span> workspace.
+            </p>
+          </div>
+
+          <div class="surface-card">
+            <div th:if="${message}" class="alert alert-success mb-4" th:text="${message}"></div>
+            <div th:if="${error}" class="alert alert-danger mb-4" th:text="${error}"></div>
+
+            <form th:action="@{/perform_login}" method="post" class="js-submit-loading" novalidate>
+              <input type="hidden" name="intendedRole" th:value="${role}">
+
+              <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <div class="input-group soft-input">
+                  <span class="input-group-text input-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M20 21a8 8 0 0 0-16 0"/>
+                      <circle cx="12" cy="8" r="4"/>
+                    </svg>
+                  </span>
+                  <input id="username" type="text" name="username" class="form-control" autocomplete="username" required>
+                </div>
+              </div>
+
+              <div class="mb-2">
+                <label class="form-label" for="password">Password</label>
+                <div class="input-group soft-input">
+                  <span class="input-group-text input-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="4" y="11" width="16" height="9" rx="2"/>
+                      <path d="M8 11V8a4 4 0 1 1 8 0v3"/>
+                    </svg>
+                  </span>
+                  <input id="password" type="password" name="password" class="form-control" autocomplete="current-password" required>
+                  <button type="button" class="password-toggle-btn" data-password-toggle="#password" aria-label="Toggle password visibility" aria-pressed="false">Show</button>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <small class="text-muted-portal">Use the role-specific login page for your account.</small>
+                <small class="text-muted-portal">Keyboard friendly</small>
+              </div>
+
+              <button type="submit" class="btn btn-brand w-100">Sign In Securely</button>
+            </form>
+
+            <div class="mt-4">
+              <div class="small text-uppercase fw-semibold text-muted-portal mb-2">Switch role</div>
+              <div class="role-switch">
+                <a th:href="@{/admin/login}" th:classappend="${role == 'ADMIN'} ? ' active' : ''">Admin</a>
+                <a th:href="@{/warden/login}" th:classappend="${role == 'WARDEN'} ? ' active' : ''">Warden</a>
+                <a th:href="@{/student/login}" th:classappend="${role == 'STUDENT'} ? ' active' : ''">Student</a>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-center mt-4 text-muted-portal mb-0">
+            Demo credentials remain documented in the project README.
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/portal.js}"></script>
+</body>
+</html>

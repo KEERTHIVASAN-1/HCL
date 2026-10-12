@@ -1,5 +1,6 @@
 # Java compiled class files
 *.class
+HostelManagement/hostel-java/target/
 
 # Package files
 *.jar

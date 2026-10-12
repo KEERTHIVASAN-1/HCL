@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${title}">Hostel</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="app-shell-body portal-page">
+<nav class="navbar portal-topbar">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-3" th:href="@{/}">
+      <span class="portal-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 10 12 4l9 6"/><path d="M5 10v8h14v-8"/><path d="M9 18v-4h6v4"/>
+        </svg>
+      </span>
+      <span>Campus Hostel Portal</span>
+    </a>
+    <div class="topbar-user">
+      <span class="navbar-text text-white d-none d-sm-inline" sec:authentication="name"></span>
+      <form th:action="@{/logout}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-ghost-brand btn-sm">Logout</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<main class="container py-4" th:fragment="content">
+</main>
+</body>
+</html>

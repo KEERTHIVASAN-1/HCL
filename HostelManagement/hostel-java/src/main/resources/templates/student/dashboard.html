@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Hostel | Campus Hostel Portal</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="app-shell-body portal-page role-student">
+<main class="content-shell student-content-shell">
+  <header class="topbar">
+    <div class="d-flex align-items-center gap-3">
+      <div class="portal-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 10 12 4l9 6"/>
+          <path d="M5 10v8h14v-8"/>
+          <path d="M9 18v-4h6v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="fw-semibold">Campus Hostel Portal</div>
+        <div class="small text-muted-portal">Student workspace</div>
+      </div>
+    </div>
+    <div class="topbar-user">
+      <div class="text-end d-none d-sm-block">
+        <div class="fw-semibold" sec:authentication="name">Student</div>
+        <div class="small text-muted-portal">Student access</div>
+      </div>
+      <div class="avatar-badge" aria-hidden="true">ST</div>
+      <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-outline-brand">Logout</button>
+      </form>
+    </div>
+  </header>
+
+  <section class="page-hero student-hero mb-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-badge mb-3">
+          <span class="list-dot bg-white"></span>
+          <span>Your campus home</span>
+        </div>
+        <h1 class="portal-title text-white mb-3">
+          Welcome, <span th:text="${student != null ? student.name : accountUsername}">Student</span>
+        </h1>
+        <p class="text-muted-hero mb-0">
+          Your personal hostel profile and current room allocation, all in one place.
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <div class="student-hero-note">
+          <div class="small text-white-50 mb-1">Account status</div>
+          <div class="fw-semibold">
+            <span class="list-dot me-2"></span>
+            <span th:text="${student != null ? student.status : 'Profile setup needed'}">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div th:if="${student == null}" class="alert alert-info mb-4" role="status">
+    Your student profile is not linked yet. Please contact the hostel administrator to complete your account setup.
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <section class="surface-card profile-card h-100">
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="stat-icon stat-accent-primary" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20 21a8 8 0 0 0-16 0"/>
+              <circle cx="12" cy="8" r="4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="surface-title">My profile</div>
+            <p class="surface-description">Your registered student information.</p>
+          </div>
+        </div>
+
+        <div th:if="${student != null}" class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">Full name</div>
+            <div class="detail-value" th:text="${student.name}">Student Name</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Student ID</div>
+            <div class="detail-value" th:text="${student.studentId}">STU001</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Email address</div>
+            <div class="detail-value text-break" th:text="${student.email}">student@college.edu</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Profile status</div>
+            <div>
+              <span class="status-badge" th:text="${student.status}"
+                    th:classappend="${student.status == 'ACTIVE'} ? ' status-active' : ' status-warning'">ACTIVE</span>
+            </div>
+          </div>
+        </div>
+        <div th:if="${student == null}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">Profile not available</div>
+          <p class="mb-0">Your account is signed in, but no student record is linked to it yet.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-lg-6">
+      <section class="surface-card allocation-card h-100">
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="stat-icon stat-accent-teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 20h18"/>
+              <path d="M5 20V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v11"/>
+              <path d="M8 12h8"/>
+              <path d="M8 16h8"/>
+            </svg>
+          </div>
+          <div>
+            <div class="surface-title">My room allocation</div>
+            <p class="surface-description">Your current assigned room and bed.</p>
+          </div>
+        </div>
+
+        <div th:if="${allocation != null}" class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">Hostel block</div>
+            <div class="detail-value"
+                 th:text="${allocatedRoom != null ? allocatedRoom.block : 'Room details unavailable'}">A</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Room number</div>
+            <div class="detail-value" th:text="${allocation.roomNo}">A-101</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bed number</div>
+            <div class="detail-value" th:text="${allocation.bedNo}">1</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Allocation status</div>
+            <div>
+              <span class="status-badge status-active" th:text="${allocation.status}">ACTIVE</span>
+            </div>
+          </div>
+        </div>
+
+        <div th:if="${allocation == null}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 20h18"/>
+              <path d="M5 20V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v11"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No bed assigned yet</div>
+          <p class="mb-0">Your room and bed details will appear here after an administrator or warden assigns them.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="student-footer text-center text-muted-portal">
+    For profile or room assignment updates, contact your hostel administrator.
+  </footer>
+</main>
+</body>
+</html>

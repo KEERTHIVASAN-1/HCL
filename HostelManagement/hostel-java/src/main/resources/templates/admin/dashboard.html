@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard | Campus Hostel Portal</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="app-shell-body portal-page role-admin">
+<aside class="sidebar-panel offcanvas-lg offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
+  <div class="sidebar-inner">
+    <div class="sidebar-brand">
+      <div class="portal-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 10 12 4l9 6"/>
+          <path d="M5 10v8h14v-8"/>
+          <path d="M9 18v-4h6v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="fw-semibold" id="adminSidebarLabel">Campus Hostel Portal</div>
+        <div class="small text-white-50">Admin workspace</div>
+      </div>
+    </div>
+
+    <div class="sidebar-note">
+      Monitor occupancy, manage room stock, and keep student records organized from one central dashboard.
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Admin navigation">
+      <a class="sidebar-link active" th:href="@{/admin/dashboard}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 12h7V4H4z"/>
+            <path d="M13 20h7v-7h-7z"/>
+            <path d="M13 10h7V4h-7z"/>
+            <path d="M4 20h7v-6H4z"/>
+          </svg>
+        </span>
+        <span>Overview</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/students}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M19 8v6"/>
+            <path d="M22 11h-6"/>
+          </svg>
+        </span>
+        <span>Students</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/rooms}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+            <path d="M9 10h1"/>
+            <path d="M14 10h1"/>
+          </svg>
+        </span>
+        <span>Rooms &amp; Beds</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/allocations}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M8 6h13"/>
+            <path d="M8 12h13"/>
+            <path d="M8 18h13"/>
+            <path d="M3 6h.01"/>
+            <path d="M3 12h.01"/>
+            <path d="M3 18h.01"/>
+          </svg>
+        </span>
+        <span>Allocations</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="sidebar-link w-100 border-0 text-start bg-transparent">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <path d="m16 17 5-5-5-5"/>
+            <path d="M21 12H9"/>
+          </svg>
+        </span>
+        <span>Logout</span>
+      </button>
+    </form>
+  </div>
+</aside>
+
+<main class="content-shell">
+  <div class="topbar">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-outline-brand mobile-only" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+        Menu
+      </button>
+      <div>
+        <div class="small text-uppercase fw-semibold text-muted-portal">Administration</div>
+        <div class="portal-title fs-4">Hostel management overview</div>
+      </div>
+    </div>
+    <div class="topbar-user">
+      <div class="text-end">
+        <div class="fw-semibold" sec:authentication="name">admin</div>
+        <div class="small text-muted-portal">Administrator access</div>
+      </div>
+      <div class="avatar-badge">AD</div>
+    </div>
+  </div>
+
+  <section class="page-hero mb-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-xl-8">
+        <div class="hero-badge mb-3">
+          <span class="list-dot bg-white"></span>
+          <span>Live operational dashboard</span>
+        </div>
+        <h1 class="portal-title text-white mb-3">Track hostel capacity, student records, and bed allocations in one place.</h1>
+        <p class="text-muted-hero mb-4">
+          This dashboard uses the current Spring Boot and MongoDB data to surface occupancy levels, room capacity, and allocation activity without changing the existing security or backend workflows.
+        </p>
+        <div class="hero-actions">
+          <a th:href="@{/admin/students}" class="btn btn-ghost-brand">Manage Students</a>
+          <a th:href="@{/admin/rooms}" class="btn btn-ghost-brand">Manage Rooms</a>
+          <a th:href="@{/admin/allocations/new}" class="btn btn-brand">Allocate Bed</a>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="quick-kpi">
+          <div class="quick-kpi-item">
+            <div class="small text-white-50 mb-1">Occupancy rate</div>
+            <div class="fs-3 fw-bold" th:text="${utilizationRate} + '%'">0%</div>
+          </div>
+          <div class="quick-kpi-item">
+            <div class="small text-white-50 mb-1">Beds available</div>
+            <div class="fs-3 fw-bold" th:text="${availableBeds}">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-grid mb-4">
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Total Students</div>
+          <div class="stat-value" th:text="${studentCount}">0</div>
+          <div class="metric-trend">Active student records in the portal</div>
+        </div>
+        <div class="stat-icon stat-accent-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M19 8v6"/>
+            <path d="M22 11h-6"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Total Rooms</div>
+          <div class="stat-value" th:text="${roomCount}">0</div>
+          <div class="metric-trend">Configured hostel rooms across all blocks</div>
+        </div>
+        <div class="stat-icon stat-accent-teal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+            <path d="M9 10h1"/>
+            <path d="M14 10h1"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Occupied Beds</div>
+          <div class="stat-value" th:text="${occupiedBeds}">0</div>
+          <div class="metric-trend">Beds currently assigned to students</div>
+        </div>
+        <div class="stat-icon stat-accent-warning" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 20h18"/>
+            <path d="M6 20V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12"/>
+            <path d="M9 10h6"/>
+            <path d="M9 14h6"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+
+    <article class="surface-card stat-card">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div>
+          <div class="stat-label">Available Beds</div>
+          <div class="stat-value" th:text="${availableBeds}">0</div>
+          <div class="metric-trend">Immediate capacity remaining for allocation</div>
+        </div>
+        <div class="stat-icon stat-accent-success" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="m5 12 4 4L19 6"/>
+          </svg>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div class="row g-4 mb-4">
+    <div class="col-xl-5">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Block occupancy</div>
+            <p class="surface-description">Capacity and utilization per hostel block using live room and allocation data.</p>
+          </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(blockStats)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No room blocks available yet</div>
+          <p class="mb-0">Add rooms to start seeing occupancy progress across hostel blocks.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(blockStats)}" class="occupancy-list">
+          <article class="occupancy-row" th:each="entry : ${blockStats}">
+            <div class="occupancy-meta">
+              <div>
+                <div class="fw-semibold">Block <span th:text="${entry['block']}">A</span></div>
+                <div class="small text-muted-portal">
+                  <span th:text="${entry['roomCount']}">0</span> rooms,
+                  <span th:text="${entry['totalBeds']}">0</span> beds
+                </div>
+              </div>
+              <div class="text-end">
+                <div class="fw-semibold" th:text="${entry['occupancyPercent']} + '%'">0%</div>
+                <div class="small text-muted-portal">
+                  <span th:text="${entry['occupiedBeds']}">0</span> occupied / <span th:text="${entry['availableBeds']}">0</span> free
+                </div>
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-value" th:style="'width:' + ${entry['occupancyPercent']} + '%'"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-xl-7">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Room occupancy overview</div>
+            <p class="surface-description">Keep an eye on capacity utilization room by room before making new allocations.</p>
+          </div>
+          <a th:href="@{/admin/rooms}" class="btn btn-outline-brand">Open room inventory</a>
+        </div>
+
+        <div th:if="${#lists.isEmpty(rooms)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No rooms configured</div>
+          <p class="mb-0">Create room records to start managing hostel capacity and bed assignments.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(rooms)}" class="occupancy-list">
+          <article class="occupancy-row" th:each="roomEntry : ${rooms}">
+            <div class="occupancy-meta">
+              <div>
+                <div class="fw-semibold" th:text="${roomEntry['room'].roomNo}">A-101</div>
+                <div class="small text-muted-portal">Block <span th:text="${roomEntry['room'].block}">A</span></div>
+              </div>
+              <div class="text-end">
+                <div class="fw-semibold">
+                  <span th:text="${roomEntry['occupied']}">0</span>/<span th:text="${roomEntry['room'].capacity}">0</span>
+                </div>
+                <div class="small text-muted-portal"><span th:text="${roomEntry['available']}">0</span> beds available</div>
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-value" th:style="'width:' + ${roomEntry['occupancyPercent']} + '%'"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12">
+      <section class="surface-card p-4">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Student directory</div>
+            <p class="surface-description">Search current student records before assigning new rooms or updating occupancy.</p>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="search" class="form-control filter-control" placeholder="Search students" data-filter-target="#adminStudentsTable">
+            <a th:href="@{/admin/students/new}" class="btn btn-brand">Add Student</a>
+          </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(students)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No students registered yet</div>
+          <p class="mb-0">Create the first student profile to activate hostel allocation workflows.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(students)}" class="table-responsive">
+          <table class="table data-table align-middle" id="adminStudentsTable">
+            <thead>
+            <tr>
+              <th>Student</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}"
+                data-filter-row
+                th:attr="data-search=${student.studentId + ' ' + student.name + ' ' + student.email + ' ' + student.status}">
+              <td>
+                <div class="fw-semibold" th:text="${student.name}">Student One</div>
+                <div class="small text-muted-portal" th:text="${student.studentId}">STU001</div>
+              </td>
+              <td th:text="${student.email}">student1@hostel.local</td>
+              <td>
+                <span class="status-badge" th:text="${student.status}"
+                      th:classappend="${student.status == 'ACTIVE'} ? ' status-active' : ' status-warning'">ACTIVE</span>
+              </td>
+            </tr>
+            <tr class="d-none" data-filter-empty="#adminStudentsTable">
+              <td colspan="3" class="text-center text-muted-portal">No students match your search.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-xl-7">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Room inventory</div>
+            <p class="surface-description">Capacity, occupancy, and remaining availability across the current room list.</p>
+          </div>
+          <input type="search" class="form-control filter-control" placeholder="Search rooms" data-filter-target="#adminRoomsTable">
+        </div>
+
+        <div th:if="${#lists.isEmpty(rooms)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No rooms available</div>
+          <p class="mb-0">Add room records to begin capacity planning and allocation tracking.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(rooms)}" class="table-responsive">
+          <table class="table data-table align-middle" id="adminRoomsTable">
+            <thead>
+            <tr>
+              <th>Room</th>
+              <th>Capacity</th>
+              <th>Occupied</th>
+              <th>Availability</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="roomEntry : ${rooms}"
+                data-filter-row
+                th:attr="data-search=${roomEntry['room'].roomNo + ' ' + roomEntry['room'].block}">
+              <td>
+                <div class="fw-semibold" th:text="${roomEntry['room'].roomNo}">A-101</div>
+                <div class="small text-muted-portal">Block <span th:text="${roomEntry['room'].block}">A</span></div>
+              </td>
+              <td th:text="${roomEntry['room'].capacity}">3</td>
+              <td th:text="${roomEntry['occupied']}">1</td>
+              <td>
+                <span class="status-badge status-info" th:text="${roomEntry['available']} + ' free'">2 free</span>
+              </td>
+            </tr>
+            <tr class="d-none" data-filter-empty="#adminRoomsTable">
+              <td colspan="4" class="text-center text-muted-portal">No rooms match your search.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-xl-5">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">Allocation activity</div>
+            <p class="surface-description">Live list of bed allocations currently stored in the system.</p>
+          </div>
+          <a th:href="@{/admin/allocations}" class="btn btn-outline-brand">View all</a>
+        </div>
+
+        <div th:if="${#lists.isEmpty(allocations)}" class="empty-state">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M8 6h13"/>
+              <path d="M8 12h13"/>
+              <path d="M8 18h13"/>
+              <path d="M3 6h.01"/>
+              <path d="M3 12h.01"/>
+              <path d="M3 18h.01"/>
+            </svg>
+          </div>
+          <div class="fw-semibold mb-2">No allocations yet</div>
+          <p class="mb-0">Assign a bed to a student to begin tracking hostel occupancy in real time.</p>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(allocations)}" class="table-responsive">
+          <table class="table data-table align-middle mb-0">
+            <thead>
+            <tr>
+              <th>Student</th>
+              <th>Room</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="allocation : ${allocations}">
+              <td th:text="${allocation.studentId}">STU001</td>
+              <td>
+                <div class="fw-semibold" th:text="${allocation.roomNo}">A-101</div>
+                <div class="small text-muted-portal">Bed <span th:text="${allocation.bedNo}">1</span></div>
+              </td>
+              <td>
+                <span class="status-badge status-active" th:text="${allocation.status}">ACTIVE</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/portal.js}"></script>
+</body>
+</html>

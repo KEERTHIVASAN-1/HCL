@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Allocate Bed | Campus Hostel Portal</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="app-shell-body portal-page role-admin">
+<aside class="sidebar-panel offcanvas-lg offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
+  <div class="sidebar-inner">
+    <div class="sidebar-brand">
+      <div class="portal-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 10 12 4l9 6"/>
+          <path d="M5 10v8h14v-8"/>
+          <path d="M9 18v-4h6v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="fw-semibold" id="adminSidebarLabel">Campus Hostel Portal</div>
+        <div class="small text-white-50">Admin workspace</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Admin navigation">
+      <a class="sidebar-link" th:href="@{/admin/dashboard}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 12h7V4H4z"/>
+            <path d="M13 20h7v-7h-7z"/>
+            <path d="M13 10h7V4h-7z"/>
+            <path d="M4 20h7v-6H4z"/>
+          </svg>
+        </span>
+        <span>Overview</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/students}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M19 8v6"/>
+            <path d="M22 11h-6"/>
+          </svg>
+        </span>
+        <span>Students</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/rooms}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+            <path d="M9 10h1"/>
+            <path d="M14 10h1"/>
+          </svg>
+        </span>
+        <span>Rooms &amp; Beds</span>
+      </a>
+      <a class="sidebar-link active" th:href="@{/admin/allocations}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M8 6h13"/>
+            <path d="M8 12h13"/>
+            <path d="M8 18h13"/>
+            <path d="M3 6h.01"/>
+            <path d="M3 12h.01"/>
+            <path d="M3 18h.01"/>
+          </svg>
+        </span>
+        <span>Allocations</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="sidebar-link w-100 border-0 text-start bg-transparent">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <path d="m16 17 5-5-5-5"/>
+            <path d="M21 12H9"/>
+          </svg>
+        </span>
+        <span>Logout</span>
+      </button>
+    </form>
+  </div>
+</aside>
+
+<main class="content-shell">
+  <div class="topbar">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-outline-brand mobile-only" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+        Menu
+      </button>
+      <div>
+        <div class="small text-uppercase fw-semibold text-muted-portal">Administration</div>
+        <div class="portal-title fs-4">Allocate bed</div>
+      </div>
+    </div>
+    <div class="topbar-user">
+      <div class="text-end">
+        <div class="fw-semibold" sec:authentication="name">admin</div>
+        <div class="small text-muted-portal">Administrator access</div>
+      </div>
+      <div class="avatar-badge">AD</div>
+    </div>
+  </div>
+
+  <section class="page-hero mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-badge mb-3">
+          <span class="list-dot bg-white"></span>
+          <span>Allocation workflow</span>
+        </div>
+        <h1 class="portal-title text-white mb-3">Assign a student to an available room and bed using live capacity data.</h1>
+        <p class="text-muted-hero mb-0">
+          First choose a room to refresh the open bed list, then complete the allocation form below.
+        </p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a th:href="@{/admin/allocations}" class="btn btn-ghost-brand">Back to Allocations</a>
+      </div>
+    </div>
+  </section>
+
+  <div th:if="${error}" class="alert alert-danger mb-4" th:text="${error}"></div>
+
+  <div class="row g-4">
+    <div class="col-xl-4">
+      <section class="surface-card p-4 h-100">
+        <div class="surface-title mb-3">1. Refresh available beds</div>
+        <p class="surface-description mb-4">Choose a room to load only the bed numbers that are still open.</p>
+
+        <form th:action="@{/admin/allocations/new}" method="get">
+          <div class="mb-3">
+            <label class="form-label" for="roomSelector">Choose Room</label>
+            <select id="roomSelector" name="roomNo" class="form-select">
+              <option th:each="room : ${rooms}"
+                      th:value="${room.roomNo}"
+                      th:text="${room.roomNo + ' - Block ' + room.block}"
+                      th:selected="${room.roomNo == selectedRoomNo}"></option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-outline-brand w-100">Load Available Beds</button>
+        </form>
+      </section>
+    </div>
+
+    <div class="col-xl-8">
+      <section class="surface-card p-4">
+        <div class="surface-header">
+          <div>
+            <div class="surface-title">2. Complete allocation</div>
+            <p class="surface-description">Select the student, confirm the room, and assign one of the open beds.</p>
+          </div>
+        </div>
+
+        <form th:action="@{/admin/allocations}" method="post">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="studentId">Student</label>
+              <select id="studentId" name="studentId" class="form-select" required>
+                <option value="">Select student</option>
+                <option th:each="student : ${students}"
+                        th:value="${student.studentId}"
+                        th:text="${student.studentId + ' - ' + student.name}"></option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="roomNo">Room</label>
+              <select id="roomNo" name="roomNo" class="form-select" required>
+                <option th:each="room : ${rooms}"
+                        th:value="${room.roomNo}"
+                        th:text="${room.roomNo + ' - Block ' + room.block}"
+                        th:selected="${room.roomNo == selectedRoomNo}"></option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="bedNo">Available Bed</label>
+              <select id="bedNo" name="bedNo" class="form-select" required>
+                <option value="">Select bed</option>
+                <option th:each="bedNo : ${availableBeds}" th:value="${bedNo}" th:text="${'Bed ' + bedNo}"></option>
+              </select>
+              <div class="form-text">If the list is empty, reload the room to check for free capacity.</div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 flex-wrap mt-4">
+            <button type="submit" class="btn btn-brand">Save Allocation</button>
+            <a th:href="@{/admin/allocations}" class="btn btn-outline-brand">Cancel</a>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/portal.js}"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rooms &amp; Beds | Campus Hostel Portal</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="app-shell-body portal-page role-admin">
+<aside class="sidebar-panel offcanvas-lg offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
+  <div class="sidebar-inner">
+    <div class="sidebar-brand">
+      <div class="portal-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 10 12 4l9 6"/>
+          <path d="M5 10v8h14v-8"/>
+          <path d="M9 18v-4h6v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="fw-semibold" id="adminSidebarLabel">Campus Hostel Portal</div>
+        <div class="small text-white-50">Admin workspace</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Admin navigation">
+      <a class="sidebar-link" th:href="@{/admin/dashboard}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 12h7V4H4z"/>
+            <path d="M13 20h7v-7h-7z"/>
+            <path d="M13 10h7V4h-7z"/>
+            <path d="M4 20h7v-6H4z"/>
+          </svg>
+        </span>
+        <span>Overview</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/students}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M19 8v6"/>
+            <path d="M22 11h-6"/>
+          </svg>
+        </span>
+        <span>Students</span>
+      </a>
+      <a class="sidebar-link active" th:href="@{/admin/rooms}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+            <path d="M9 10h1"/>
+            <path d="M14 10h1"/>
+          </svg>
+        </span>
+        <span>Rooms &amp; Beds</span>
+      </a>
+      <a class="sidebar-link" th:href="@{/admin/allocations}">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M8 6h13"/>
+            <path d="M8 12h13"/>
+            <path d="M8 18h13"/>
+            <path d="M3 6h.01"/>
+            <path d="M3 12h.01"/>
+            <path d="M3 18h.01"/>
+          </svg>
+        </span>
+        <span>Allocations</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="sidebar-link w-100 border-0 text-start bg-transparent">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <path d="m16 17 5-5-5-5"/>
+            <path d="M21 12H9"/>
+          </svg>
+        </span>
+        <span>Logout</span>
+      </button>
+    </form>
+  </div>
+</aside>
+
+<main class="content-shell">
+  <div class="topbar">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-outline-brand mobile-only" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+        Menu
+      </button>
+      <div>
+        <div class="small text-uppercase fw-semibold text-muted-portal">Administration</div>
+        <div class="portal-title fs-4">Room inventory</div>
+      </div>
+    </div>
+    <div class="topbar-user">
+      <div class="text-end">
+        <div class="fw-semibold" sec:authentication="name">admin</div>
+        <div class="small text-muted-portal">Administrator access</div>
+      </div>
+      <div class="avatar-badge">AD</div>
+    </div>
+  </div>
+
+  <section class="page-hero mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-badge mb-3">
+          <span class="list-dot bg-white"></span>
+          <span>Capacity planning</span>
+        </div>
+        <h1 class="portal-title text-white mb-3">Manage rooms, track occupancy, and keep bed availability accurate.</h1>
+        <p class="text-muted-hero mb-0">
+          Review block assignments, room capacity, and current utilization before making new student allocations.
+        </p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a th:href="@{/admin/rooms/new}" class="btn btn-brand">Add Room</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="surface-card p-4">
+    <div class="surface-header">
+      <div>
+        <div class="surface-title">Room inventory</div>
+        <p class="surface-description">Every room below shows live occupancy, available beds, and capacity.</p>
+      </div>
+      <input type="search" class="form-control filter-control" placeholder="Search by room or block" data-filter-target="#roomsTable">
+    </div>
+
+    <div th:if="${#lists.isEmpty(rooms)}" class="empty-state">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 21h18"/>
+          <path d="M5 21V7l7-4 7 4v14"/>
+        </svg>
+      </div>
+      <div class="fw-semibold mb-2">No rooms configured yet</div>
+      <p class="mb-0">Create a room record to begin capacity and allocation management.</p>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(rooms)}" class="table-responsive">
+      <table class="table data-table align-middle" id="roomsTable">
+        <thead>
+        <tr>
+          <th>Room</th>
+          <th>Capacity</th>
+          <th>Occupied</th>
+          <th>Available</th>
+          <th>Utilization</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${rooms}"
+            data-filter-row
+            th:attr="data-search=${r['room'].roomNo + ' ' + r['room'].block}">
+          <td>
+            <div class="fw-semibold" th:text="${r['room'].roomNo}">A-101</div>
+            <div class="small text-muted-portal">Block <span th:text="${r['room'].block}">A</span></div>
+          </td>
+          <td th:text="${r['room'].capacity}">3</td>
+          <td th:text="${r['occupied']}">1</td>
+          <td>
+            <span class="status-badge status-info" th:text="${r['available']} + ' open'">2 open</span>
+          </td>
+          <td style="min-width: 10rem;">
+            <div class="small text-muted-portal mb-2" th:text="${r['occupancyPercent']} + '%'">33%</div>
+            <div class="progress-track">
+              <div class="progress-value" th:style="'width:' + ${r['occupancyPercent']} + '%'"></div>
+            </div>
+          </td>
+        </tr>
+        <tr class="d-none" data-filter-empty="#roomsTable">
+          <td colspan="5" class="text-center text-muted-portal">No rooms match your search.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/portal.js}"></script>
+</body>
+</html>

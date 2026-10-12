@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Access Denied | Campus Hostel Portal</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/portal.css}" rel="stylesheet">
+</head>
+<body class="portal-page role-admin">
+<main class="container py-5">
+  <section class="surface-card access-denied-card mx-auto p-4 p-md-5 text-center">
+    <div class="access-denied-icon mx-auto mb-4" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 9v4"/><path d="M12 17h.01"/>
+        <path d="M10.3 3.9 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3l-7.6-13.1a2 2 0 0 0-3.4 0Z"/>
+      </svg>
+    </div>
+    <div class="small text-uppercase fw-semibold text-muted-portal mb-2">Protected area</div>
+    <h1 class="portal-title mb-3">You don’t have access to this page.</h1>
+    <p class="portal-subtitle mb-4">
+      Your account is signed in, but its role does not allow access to this section. Return to the correct role portal or sign out.
+    </p>
+    <div class="d-flex justify-content-center gap-2 flex-wrap">
+      <a th:href="@{/}" class="btn btn-brand">Go to sign in</a>
+      <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-outline-brand">Sign out</button>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>
