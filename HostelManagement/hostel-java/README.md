@@ -63,6 +63,9 @@ an environment password does not reset an already-created user's password.
 
 ## Login pages and dashboards
 
+The portal uses a warm light-red and gold visual theme, with white surfaces and
+dark text for readable contrast across the login page and dashboards.
+
 | Role | Sign-in | Dashboard after successful authentication |
 |---|---|---|
 | Admin | `/login` | `/admin/dashboard` |
