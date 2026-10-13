@@ -1,20 +1,20 @@
 :root {
-  --portal-primary: #142b4a;
-  --portal-secondary: #2855a6;
-  --portal-accent: #14b8a6;
-  --portal-bg: #f4f7fb;
+  --portal-primary: #9f263d;
+  --portal-secondary: #a66b12;
+  --portal-accent: #d4a017;
+  --portal-bg: #fff7f5;
   --portal-surface: #ffffff;
-  --portal-text: #1e293b;
-  --portal-muted: #64748b;
-  --portal-success: #16a34a;
-  --portal-warning: #f59e0b;
-  --portal-danger: #dc2626;
-  --portal-border: #dbe4f0;
-  --portal-shadow: 0 22px 50px rgba(15, 23, 42, 0.08);
-  --portal-shadow-soft: 0 14px 32px rgba(15, 23, 42, 0.06);
+  --portal-text: #241b1c;
+  --portal-muted: #716366;
+  --portal-success: #8a6116;
+  --portal-warning: #a66b12;
+  --portal-danger: #b4233b;
+  --portal-border: #f0d9d8;
+  --portal-shadow: 0 22px 50px rgba(90, 29, 40, 0.1);
+  --portal-shadow-soft: 0 14px 32px rgba(90, 29, 40, 0.07);
   --portal-radius: 1.25rem;
   --portal-role-accent: var(--portal-secondary);
-  --portal-role-soft: rgba(40, 85, 166, 0.14);
+  --portal-role-soft: rgba(212, 160, 23, 0.16);
 }
 
 * {
@@ -48,9 +48,9 @@ a:hover {
   align-items: center;
   justify-content: center;
   border-radius: 0.9rem;
-  background: linear-gradient(135deg, var(--portal-primary), var(--portal-secondary));
+  background: linear-gradient(135deg, var(--portal-primary), var(--portal-accent));
   color: #fff;
-  box-shadow: 0 12px 24px rgba(20, 43, 74, 0.18);
+  box-shadow: 0 12px 24px rgba(159, 38, 61, 0.2);
 }
 
 .portal-logo svg,
@@ -114,7 +114,7 @@ a:hover {
   border-radius: 0.95rem;
   padding: 0.8rem 1.2rem;
   font-weight: 600;
-  box-shadow: 0 14px 28px rgba(20, 43, 74, 0.18);
+  box-shadow: 0 14px 28px rgba(159, 38, 61, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
@@ -122,7 +122,7 @@ a:hover {
 .btn-brand:focus {
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 18px 30px rgba(20, 43, 74, 0.24);
+  box-shadow: 0 18px 30px rgba(159, 38, 61, 0.25);
 }
 
 .btn-ghost-brand {
@@ -134,7 +134,7 @@ a:hover {
 }
 
 .btn-outline-brand {
-  border: 1px solid rgba(40, 85, 166, 0.25);
+  border: 1px solid rgba(166, 107, 18, 0.3);
   color: var(--portal-secondary);
   border-radius: 0.95rem;
   font-weight: 600;
@@ -143,7 +143,7 @@ a:hover {
 
 .btn-outline-brand:hover,
 .btn-outline-brand:focus {
-  background: rgba(40, 85, 166, 0.08);
+  background: rgba(212, 160, 23, 0.12);
   color: var(--portal-primary);
 }
 
@@ -159,7 +159,7 @@ a:hover {
 .form-control:focus,
 .form-select:focus {
   border-color: var(--portal-role-accent);
-  box-shadow: 0 0 0 0.25rem rgba(20, 184, 166, 0.14);
+  box-shadow: 0 0 0 0.25rem rgba(212, 160, 23, 0.2);
 }
 
 .form-label {
@@ -182,7 +182,7 @@ a:hover {
 
 .input-group.soft-input:focus-within {
   border-color: var(--portal-role-accent);
-  box-shadow: 0 0 0 0.25rem rgba(20, 184, 166, 0.14);
+  box-shadow: 0 0 0 0.25rem rgba(212, 160, 23, 0.2);
 }
 
 .input-icon {
@@ -210,18 +210,18 @@ a:hover {
 }
 
 .alert-success {
-  background: rgba(22, 163, 74, 0.12);
-  color: #14532d;
+  background: #fff4d6;
+  color: #76510e;
 }
 
 .alert-danger {
-  background: rgba(220, 38, 38, 0.12);
-  color: #991b1b;
+  background: #fff0f1;
+  color: #9f263d;
 }
 
 .alert-info {
-  background: rgba(20, 184, 166, 0.1);
-  color: #0f766e;
+  background: #fff4d6;
+  color: #76510e;
 }
 
 .auth-page {
@@ -252,8 +252,8 @@ a:hover {
   color: #fff;
   background:
     radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(20, 184, 166, 0.25), transparent 24%),
-    linear-gradient(160deg, #112540 0%, #183764 54%, #1d4f86 100%);
+    radial-gradient(circle at bottom left, rgba(212, 160, 23, 0.24), transparent 24%),
+    linear-gradient(160deg, #5d1726 0%, #842638 54%, #a83a48 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -261,18 +261,18 @@ a:hover {
 }
 
 .role-admin {
-  --portal-role-accent: #2855a6;
-  --portal-role-soft: rgba(40, 85, 166, 0.14);
+  --portal-role-accent: #b4233b;
+  --portal-role-soft: rgba(180, 35, 59, 0.14);
 }
 
 .role-warden {
-  --portal-role-accent: #14b8a6;
-  --portal-role-soft: rgba(20, 184, 166, 0.16);
+  --portal-role-accent: #d4a017;
+  --portal-role-soft: rgba(212, 160, 23, 0.16);
 }
 
 .role-student {
-  --portal-role-accent: #3b82f6;
-  --portal-role-soft: rgba(59, 130, 246, 0.14);
+  --portal-role-accent: #a66b12;
+  --portal-role-soft: rgba(166, 107, 18, 0.14);
 }
 
 .auth-chip {
@@ -299,6 +299,48 @@ a:hover {
   color: rgba(255, 255, 255, 0.76);
   max-width: 32rem;
   font-size: 1rem;
+}
+
+.role-access-picker {
+  margin-top: 1.5rem;
+}
+
+.role-access-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.role-access-button {
+  flex: 1 1 7rem;
+  min-height: 2.8rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.role-access-button:hover,
+.role-access-button:focus-visible,
+.role-access-button[aria-pressed="true"] {
+  border-color: #fff;
+  background: #fff;
+  color: var(--portal-primary);
+}
+
+.role-access-button:focus-visible {
+  outline: 3px solid rgba(212, 160, 23, 0.85);
+  outline-offset: 2px;
+}
+
+.role-access-note {
+  display: block;
+  margin-top: 0.75rem;
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .auth-feature-list {
@@ -421,8 +463,8 @@ a:hover {
 .role-switch a.active,
 .role-switch a:hover {
   color: var(--portal-primary);
-  border-color: rgba(40, 85, 166, 0.24);
-  background: rgba(20, 184, 166, 0.08);
+  border-color: rgba(180, 35, 59, 0.25);
+  background: rgba(255, 240, 241, 0.9);
 }
 
 .app-shell-body {
@@ -431,7 +473,7 @@ a:hover {
 
 .sidebar-panel {
   width: 280px;
-  background: linear-gradient(180deg, #10233d 0%, #142b4a 100%);
+  background: linear-gradient(180deg, #5d1726 0%, #842638 100%);
   color: rgba(255, 255, 255, 0.9);
   border-right: 1px solid rgba(255, 255, 255, 0.04);
 }
@@ -530,15 +572,15 @@ a:hover {
   justify-content: center;
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(135deg, var(--portal-secondary), var(--portal-accent));
-  box-shadow: 0 12px 20px rgba(40, 85, 166, 0.2);
+  background: linear-gradient(135deg, var(--portal-primary), var(--portal-accent));
+  box-shadow: 0 12px 20px rgba(159, 38, 61, 0.22);
 }
 
 .page-hero {
   padding: 1.5rem;
   background:
-    radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 26%),
-    linear-gradient(135deg, rgba(20, 43, 74, 0.96), rgba(40, 85, 166, 0.96));
+    radial-gradient(circle at top right, rgba(212, 160, 23, 0.22), transparent 26%),
+    linear-gradient(135deg, rgba(110, 24, 42, 0.97), rgba(159, 38, 61, 0.96));
   border-radius: 1.6rem;
   color: #fff;
   box-shadow: var(--portal-shadow);
@@ -599,10 +641,10 @@ a:hover {
   font-size: 1.2rem;
 }
 
-.stat-accent-primary { background: rgba(40, 85, 166, 0.12); color: var(--portal-secondary); }
-.stat-accent-teal { background: rgba(20, 184, 166, 0.12); color: var(--portal-accent); }
-.stat-accent-success { background: rgba(22, 163, 74, 0.12); color: var(--portal-success); }
-.stat-accent-warning { background: rgba(245, 158, 11, 0.14); color: var(--portal-warning); }
+.stat-accent-primary { background: rgba(180, 35, 59, 0.12); color: var(--portal-primary); }
+.stat-accent-teal { background: rgba(212, 160, 23, 0.16); color: var(--portal-secondary); }
+.stat-accent-success { background: rgba(212, 160, 23, 0.16); color: var(--portal-success); }
+.stat-accent-warning { background: rgba(166, 107, 18, 0.14); color: var(--portal-warning); }
 
 .metric-trend {
   font-size: 0.88rem;
@@ -620,7 +662,7 @@ a:hover {
 .progress-value {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--portal-secondary), var(--portal-accent));
+  background: linear-gradient(90deg, var(--portal-primary), var(--portal-accent));
 }
 
 .occupancy-list {
@@ -655,7 +697,7 @@ a:hover {
   border-bottom-color: rgba(219, 228, 240, 0.9);
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background: rgba(244, 247, 251, 0.8);
+  background: rgba(255, 247, 245, 0.9);
 }
 
 .data-table tbody td {
@@ -681,13 +723,13 @@ a:hover {
 }
 
 .status-active {
-  background: rgba(22, 163, 74, 0.12);
-  color: #166534;
+  background: #fff4d6;
+  color: #76510e;
 }
 
 .status-warning {
-  background: rgba(245, 158, 11, 0.14);
-  color: #92400e;
+  background: #fff4d6;
+  color: #76510e;
 }
 
 .status-muted {
@@ -696,8 +738,8 @@ a:hover {
 }
 
 .status-info {
-  background: rgba(40, 85, 166, 0.12);
-  color: var(--portal-secondary);
+  background: #fff0f1;
+  color: var(--portal-primary);
 }
 
 .quick-kpi {
@@ -728,8 +770,8 @@ a:hover {
   align-items: center;
   justify-content: center;
   border-radius: 1.2rem;
-  background: rgba(20, 184, 166, 0.1);
-  color: var(--portal-accent);
+  background: rgba(212, 160, 23, 0.16);
+  color: var(--portal-secondary);
   font-size: 1.35rem;
 }
 
@@ -748,8 +790,8 @@ a:hover {
 .detail-item {
   padding: 1rem;
   border-radius: 1rem;
-  background: rgba(244, 247, 251, 0.86);
-  border: 1px solid rgba(219, 228, 240, 0.72);
+  background: rgba(255, 247, 245, 0.9);
+  border: 1px solid rgba(240, 217, 216, 0.9);
 }
 
 .detail-label {
@@ -786,8 +828,8 @@ a:hover {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 0.7rem;
-  background: rgba(20, 184, 166, 0.1);
-  color: var(--portal-accent);
+  background: rgba(180, 35, 59, 0.1);
+  color: var(--portal-primary);
 }
 
 .mobile-only {
@@ -827,7 +869,7 @@ a:hover {
   justify-content: center;
   border-radius: 1.25rem;
   color: var(--portal-danger);
-  background: rgba(220, 38, 38, 0.1);
+  background: rgba(180, 35, 59, 0.1);
 }
 
 .access-denied-icon svg {

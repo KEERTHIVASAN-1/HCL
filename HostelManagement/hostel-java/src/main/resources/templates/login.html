@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title th:text="${roleLabel} + ' Login | Campus Hostel Portal'">Login</title>
+  <title>Sign In | Campus Hostel Portal</title>
   <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
   <link th:href="@{/css/portal.css}" rel="stylesheet">
 </head>
-<body class="auth-page portal-page"
-      th:classappend="${role == 'ADMIN'} ? ' role-admin' : (${role == 'WARDEN'} ? ' role-warden' : ' role-student')">
+<body class="auth-page portal-page role-admin">
 <main class="auth-shell">
   <div class="auth-card-shell">
     <div class="row g-0 h-100">
@@ -30,28 +29,29 @@
 
           <div class="auth-chip mt-4">
             <span class="list-dot bg-white"></span>
-            <span th:text="${roleLabel} + ' access area'">Role access area</span>
+            <span>Secure portal access</span>
           </div>
-
-          <div th:switch="${role}">
-            <div th:case="'ADMIN'">
-              <h1 class="auth-heading">Run hostel administration with clarity and control.</h1>
-              <p class="auth-copy">
-                Review occupancy, manage room inventory, maintain student records, and coordinate allocations from one polished workspace.
-              </p>
+          <h1 class="auth-heading" id="role-description-title">One secure place to manage hostel life.</h1>
+          <p class="auth-copy" id="role-description" aria-live="polite">
+            Choose a workspace below to learn more. Your account determines which dashboard opens after sign in.
+          </p>
+          <div class="role-access-picker" aria-label="Learn about portal workspaces">
+            <p class="small text-white-50 mb-2">Explore a workspace</p>
+            <div class="role-access-buttons">
+              <button type="button" class="role-access-button" data-role-info
+                      data-title="Admin access"
+                      data-description="Manage student records, room inventory, bed allocations, and hostel occupancy."
+                      aria-controls="role-description" aria-pressed="false">Admin</button>
+              <button type="button" class="role-access-button" data-role-info
+                      data-title="Warden access"
+                      data-description="Review hostel occupancy, student records, room availability, and bed allocations."
+                      aria-controls="role-description" aria-pressed="false">Warden</button>
+              <button type="button" class="role-access-button" data-role-info
+                      data-title="Student access"
+                      data-description="View your personal student profile and current room and bed allocation."
+                      aria-controls="role-description" aria-pressed="false">Student</button>
             </div>
-            <div th:case="'WARDEN'">
-              <h1 class="auth-heading">Support hostel operations with a clear daily view.</h1>
-              <p class="auth-copy">
-                Stay on top of resident allocation, room availability, and student welfare tasks with a focused operational dashboard.
-              </p>
-            </div>
-            <div th:case="*">
-              <h1 class="auth-heading">Welcome back to your hostel living portal.</h1>
-              <p class="auth-copy">
-                Access your room allocation, student profile, and hostel information through a clean, student-friendly experience.
-              </p>
-            </div>
+            <small class="role-access-note">These buttons only describe each workspace; sign-in access is determined by your account.</small>
           </div>
 
           <div class="auth-feature-list">
@@ -101,9 +101,9 @@
         <div class="auth-form-card">
           <div class="mb-4">
             <div class="small text-uppercase fw-semibold text-muted-portal mb-2">Sign in</div>
-            <h2 class="portal-title mb-2" th:text="${roleLabel} + ' Portal Login'">Portal Login</h2>
+            <h2 class="portal-title mb-2">Welcome back</h2>
             <p class="portal-subtitle mb-0">
-              Enter your registered username and password to continue to the protected <span th:text="${roleLabel}">role</span> workspace.
+              Sign in with your account. We’ll take you to the workspace available for your role.
             </p>
           </div>
 
@@ -112,8 +112,6 @@
             <div th:if="${error}" class="alert alert-danger mb-4" th:text="${error}"></div>
 
             <form th:action="@{/perform_login}" method="post" class="js-submit-loading" novalidate>
-              <input type="hidden" name="intendedRole" th:value="${role}">
-
               <div class="mb-3">
                 <label class="form-label" for="username">Username</label>
                 <div class="input-group soft-input">
@@ -142,26 +140,14 @@
               </div>
 
               <div class="d-flex justify-content-between align-items-center mb-4">
-                <small class="text-muted-portal">Use the role-specific login page for your account.</small>
+                <small class="text-muted-portal">Your account determines your access.</small>
                 <small class="text-muted-portal">Keyboard friendly</small>
               </div>
 
               <button type="submit" class="btn btn-brand w-100">Sign In Securely</button>
             </form>
 
-            <div class="mt-4">
-              <div class="small text-uppercase fw-semibold text-muted-portal mb-2">Switch role</div>
-              <div class="role-switch">
-                <a th:href="@{/admin/login}" th:classappend="${role == 'ADMIN'} ? ' active' : ''">Admin</a>
-                <a th:href="@{/warden/login}" th:classappend="${role == 'WARDEN'} ? ' active' : ''">Warden</a>
-                <a th:href="@{/student/login}" th:classappend="${role == 'STUDENT'} ? ' active' : ''">Student</a>
-              </div>
-            </div>
           </div>
-
-          <p class="text-center mt-4 text-muted-portal mb-0">
-            Demo credentials remain documented in the project README.
-          </p>
         </div>
       </section>
     </div>

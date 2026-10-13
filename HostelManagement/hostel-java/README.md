@@ -18,7 +18,8 @@ mvn test
 mvn spring-boot:run
 ```
 
-Open `http://localhost:8080`. The application listens on port 8080 by default.
+After startup, the terminal prints the common sign-in URL using the actual
+port. The application listens on port 8080 by default.
 
 ## MongoDB
 
@@ -62,16 +63,17 @@ an environment password does not reset an already-created user's password.
 
 ## Login pages and dashboards
 
-| Role | Login | Dashboard |
+| Role | Sign-in | Dashboard after successful authentication |
 |---|---|---|
-| Admin | `/admin/login` | `/admin/dashboard` |
-| Warden | `/warden/login` | `/warden/dashboard` |
-| Student | `/student/login` | `/student/dashboard` |
+| Admin | `/login` | `/admin/dashboard` |
+| Warden | `/login` | `/warden/dashboard` |
+| Student | `/login` | `/student/dashboard` |
 
-Maintenance Staff is seeded as a role but has no first-review login page or
-dashboard. Spring Security enforces the role at the server routes. Login forms
-also require the account role to match the login page, and state-changing forms
-use Spring Security CSRF protection.
+Maintenance Staff is seeded as a role but has no first-review dashboard; login
+is safely rejected with a clear message and no portal access. Spring Security
+determines the destination from the authenticated account role and enforces
+role authorization on server routes. State-changing forms use Spring Security
+CSRF protection.
 
 ## First-review routes
 
@@ -80,7 +82,7 @@ use Spring Security CSRF protection.
 - `GET /admin/allocations`, `GET /admin/allocations/new`, `POST /admin/allocations`
 - `GET /warden/dashboard`, `GET /warden/allocations/new`, `POST /warden/allocations`
 - `GET /student/dashboard`
-- `POST /perform_login`, `POST /logout`
+- `GET /login`, `POST /perform_login`, `POST /logout`
 
 Student creation generates a student ID when none is provided and creates a
 student login using the email as username. A new student account receives the
@@ -91,17 +93,18 @@ simultaneous allocation requests.
 ## Review walkthrough
 
 1. Start MongoDB and then run `mvn spring-boot:run`.
-2. Visit `/admin/login`; log in as `admin` / `admin123`.
+2. Visit `/login`; log in as `admin` / `admin123`.
 3. Add a student with a unique email and note the generated student ID.
 4. Add a room with a block and positive bed capacity.
 5. Open **Allocate Bed**, select the student, room, and one available bed.
 6. Return to the dashboard and room list to show updated occupancy.
 7. Attempt the same bed allocation again; it is rejected by validation or the
    MongoDB unique index.
-8. Log out, then use `/warden/login` and `/student/login` to show the respective
-   dashboards. A student sees only the profile linked to their own account.
-9. Try a role mismatch (for example, admin credentials on the student login);
-   the request is rejected and the user remains logged out.
+8. Log out and use the same `/login` page for the Warden and Student accounts.
+   Each account is redirected to its own dashboard, and a student sees only
+   the profile linked to their own account.
+9. Try invalid credentials and confirm the common login page displays an
+   understandable error.
 
 ## Request flow
 

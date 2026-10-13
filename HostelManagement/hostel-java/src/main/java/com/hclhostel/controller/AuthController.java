@@ -10,40 +10,21 @@ public class AuthController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/student/login";
+        return "redirect:/login";
     }
 
-    @GetMapping("/admin/login")
-    public String adminLogin(@RequestParam(required = false) String error,
-                             @RequestParam(required = false) String logout,
-                             Model model) {
-        model.addAttribute("role", "ADMIN");
-        model.addAttribute("roleLabel", "Admin");
+    @GetMapping("/login")
+    public String login(@RequestParam(required = false) String error,
+                        @RequestParam(required = false) String logout,
+                        Model model) {
         if (error != null) model.addAttribute("error", errorMessage(error));
         if (logout != null) model.addAttribute("message", "You have been logged out.");
         return "login";
     }
 
-    @GetMapping("/warden/login")
-    public String wardenLogin(@RequestParam(required = false) String error,
-                              @RequestParam(required = false) String logout,
-                              Model model) {
-        model.addAttribute("role", "WARDEN");
-        model.addAttribute("roleLabel", "Warden");
-        if (error != null) model.addAttribute("error", errorMessage(error));
-        if (logout != null) model.addAttribute("message", "You have been logged out.");
-        return "login";
-    }
-
-    @GetMapping("/student/login")
-    public String studentLogin(@RequestParam(required = false) String error,
-                               @RequestParam(required = false) String logout,
-                               Model model) {
-        model.addAttribute("role", "STUDENT");
-        model.addAttribute("roleLabel", "Student");
-        if (error != null) model.addAttribute("error", errorMessage(error));
-        if (logout != null) model.addAttribute("message", "You have been logged out.");
-        return "login";
+    @GetMapping({"/admin/login", "/warden/login", "/student/login"})
+    public String legacyLogin() {
+        return "redirect:/login";
     }
 
     @GetMapping("/access-denied")
@@ -55,7 +36,7 @@ public class AuthController {
         return switch (error) {
             case "bad" -> "Invalid username or password.";
             case "inactive" -> "This account is inactive.";
-            case "role" -> "Role mismatch: you cannot log in through this page.";
+            case "unsupported" -> "This account does not have an available dashboard. Contact the administrator.";
             default -> "Login failed.";
         };
     }

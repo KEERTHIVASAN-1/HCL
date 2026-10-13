@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-role-info]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const title = document.querySelector("#role-description-title");
+      const description = document.querySelector("#role-description");
+      if (!title || !description) {
+        return;
+      }
+
+      title.textContent = button.dataset.title;
+      description.textContent = button.dataset.description;
+      document.querySelectorAll("[data-role-info]").forEach((roleButton) => {
+        roleButton.setAttribute("aria-pressed", String(roleButton === button));
+      });
+    });
+  });
+
   document.querySelectorAll("[data-password-toggle]").forEach((button) => {
     button.addEventListener("click", () => {
       const targetSelector = button.getAttribute("data-password-toggle");
