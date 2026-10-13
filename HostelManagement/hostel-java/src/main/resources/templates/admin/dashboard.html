@@ -109,7 +109,11 @@
         <div class="fw-semibold" sec:authentication="name">admin</div>
         <div class="small text-muted-portal">Administrator access</div>
       </div>
-      <div class="avatar-badge">AD</div>
+      <form th:action="@{/logout}" method="post" class="admin-profile-logout">
+        <button type="submit" class="avatar-badge" aria-label="Sign out of the admin portal" title="Sign out">
+          <span aria-hidden="true">AD</span>
+        </button>
+      </form>
     </div>
   </div>
 
