@@ -1,7 +1,8 @@
 :root {
   --portal-primary: #f2a3a8;
   --portal-secondary: #8a6500;
-  --portal-accent: #d4a017;
+  --portal-accent: #efbd32;
+  --portal-gold-gradient: linear-gradient(135deg, #ffedaa 0%, #f2ca52 34%, #d9a514 70%, #f8df82 100%);
   --portal-bg: #fff8f7;
   --portal-surface: #ffffff;
   --portal-text: #171717;
@@ -109,22 +110,22 @@ a:hover {
 }
 
 .btn-brand {
-  background: var(--portal-accent);
+  background: var(--portal-gold-gradient);
   border: none;
   color: #171717;
   border-radius: 0.95rem;
   padding: 0.8rem 1.2rem;
   font-weight: 600;
-  box-shadow: 0 14px 28px rgba(30, 20, 20, 0.12);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 10px 22px rgba(171, 123, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .btn-brand:hover,
 .btn-brand:focus {
   color: #171717;
   transform: translateY(-1px);
-  background: #e0b329;
-  box-shadow: 0 18px 30px rgba(30, 20, 20, 0.16);
+  filter: saturate(1.08) brightness(1.03);
+  box-shadow: 0 14px 28px rgba(171, 123, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .btn-ghost-brand {
@@ -337,9 +338,10 @@ a:hover {
 .role-access-button:hover,
 .role-access-button:focus-visible,
 .role-access-button[aria-pressed="true"] {
-  border-color: #d4a017;
-  background: #d4a017;
+  border-color: #d3a00c;
+  background: var(--portal-gold-gradient);
   color: #171717;
+  box-shadow: 0 6px 16px rgba(171, 123, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .role-access-button:focus-visible {
@@ -582,9 +584,9 @@ a:hover {
   justify-content: center;
   font-weight: 700;
   color: #fff;
-  background: var(--portal-accent);
+  background: var(--portal-gold-gradient);
   color: #171717;
-  box-shadow: 0 12px 20px rgba(30, 20, 20, 0.14);
+  box-shadow: 0 8px 18px rgba(171, 123, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .admin-profile-logout {
@@ -637,10 +639,11 @@ a:hover {
   gap: 0.45rem;
   padding: 0.5rem 0.8rem;
   border-radius: 999px;
-  background: #d4a017;
+  background: var(--portal-gold-gradient);
   color: #171717;
   font-size: 0.88rem;
   font-weight: 600;
+  box-shadow: 0 6px 14px rgba(171, 123, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .hero-actions {
@@ -683,7 +686,11 @@ a:hover {
 }
 
 .stat-accent-primary { background: #fbe1e2; color: #171717; }
-.stat-accent-gold { background: rgba(212, 160, 23, 0.16); color: var(--portal-secondary); }
+.stat-accent-gold {
+  background: var(--portal-gold-gradient);
+  color: #171717;
+  box-shadow: 0 6px 14px rgba(171, 123, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
 .stat-accent-success { background: #fff1c2; color: #765600; }
 .stat-accent-warning { background: rgba(166, 107, 18, 0.14); color: var(--portal-warning); }
 
@@ -703,7 +710,8 @@ a:hover {
 .progress-value {
   height: 100%;
   border-radius: inherit;
-  background: #d4a017;
+  background: var(--portal-gold-gradient);
+  box-shadow: 0 2px 8px rgba(171, 123, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .occupancy-list {
@@ -764,8 +772,9 @@ a:hover {
 }
 
 .status-active {
-  background: #fff4d6;
+  background: var(--portal-gold-gradient);
   color: #76510e;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 .status-warning {
@@ -814,8 +823,9 @@ a:hover {
   align-items: center;
   justify-content: center;
   border-radius: 1.2rem;
-  background: #fbe1e2;
+  background: var(--portal-gold-gradient);
   color: #171717;
+  box-shadow: 0 8px 16px rgba(171, 123, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   font-size: 1.35rem;
 }
 
