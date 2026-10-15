@@ -8,7 +8,7 @@
 - `Set` with `LinkedHashSet` to reject duplicate student IDs while preserving insertion order.
 - `Queue` with `ArrayDeque` for FIFO waitlist processing.
 - `PriorityQueue` with a comparator to process faculty requests first.
-- `Iterator.remove()` for safe removal during iteration, and `ListIterator` for forward and reverse traversal.
+- `Iterator.remove()` for safe removal during iteration, `ListIterator` for forward and reverse traversal.
 - `ArrayList` versus `LinkedList` indexed reads and front insertions using a small timing experiment. Timings vary by machine and JVM run.
 
 The program is a standalone Java file with no external dependencies.
